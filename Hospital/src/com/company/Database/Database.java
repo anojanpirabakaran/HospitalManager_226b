@@ -6,7 +6,10 @@ ProjektName:    Hospital
 Beschreibung: 
 ==============================================================*/
 
+import com.company.Building;
+import com.company.Department;
 import com.company.Interfaces.Read;
+import com.company.People.Doctor;
 import com.company.People.Worker;
 import com.company.Interfaces.Write;
 import com.company.People.Patient;
@@ -17,8 +20,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database implements Read, Write {
-    public ArrayList<Worker> workers = new ArrayList<>();
-    public ArrayList<Patient> patients  = new ArrayList<>();
+    private ArrayList<Worker> workers = new ArrayList<>();
+    private ArrayList<Patient> patients  = new ArrayList<>();
+    private ArrayList<Building> buildings = new ArrayList<>();
+    private ArrayList<Doctor> doctors = new ArrayList<>();
     //Integer is the ID of the patient followed by the reports
     public HashMap<Integer,ArrayList<Report>> reports = new HashMap<>();
 
@@ -36,5 +41,13 @@ public class Database implements Read, Write {
      */
     public void checkIn(Worker w){
 
+    }
+
+    public void printBuildingBasedOnDepartments(Department department){
+        for (Building b : buildings){
+            if (b.departments.contains(department)){
+                System.out.println(department);
+            }
+        }
     }
 }
