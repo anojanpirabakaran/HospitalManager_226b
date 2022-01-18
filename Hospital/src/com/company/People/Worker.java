@@ -6,8 +6,12 @@ ProjektName:    Hospital
 Beschreibung: 
 ==============================================================*/
 
+import com.company.Department;
+
 public class Worker extends Person{
-    public Worker(String firstName, String lastName, String occupation, String birthDate) {
-        super(firstName, lastName, occupation, birthDate);
+    Department department;
+    public Worker(String firstName, String lastName, String occupation, String birthDate,int id,Department department) {
+        super(firstName, lastName, occupation, birthDate, id);
+        this.department = department;
     }
 }
