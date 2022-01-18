@@ -17,11 +17,11 @@ import java.util.Scanner;
 public class Patient extends Person {
     Scanner scan = new Scanner(System.in);
     private String reasonForStay;
-    public Patient(String firstName, String lastName, String occupation, String birthDate, String reasonForStay,int id) {
-        super(firstName, lastName, occupation, birthDate,id);
+
+    public Patient(String firstName, String lastName, String occupation, String birthDate, String reasonForStay, int id) {
+        super(firstName, lastName, occupation, birthDate, id);
         this.reasonForStay = reasonForStay;
     }
-
 
 
     /**
@@ -29,15 +29,21 @@ public class Patient extends Person {
      * Contains
      * The user
      */
-    public void bookAppointment(Database database){
-        System.out.println("Here you see all the departments: ");
+    public void bookAppointment(Database database) {
+        System.out.println("Here you see all the departments: \n");
         for (Department department : Department.values()) {
             System.out.println(department);
         }
-        System.out.println("Choose a department: ");
+        System.out.println("\nChoose a department: ");
         String choosenDepartment = scan.nextLine();
-        System.out.println(choosenDepartment);
         database.printBuildingBasedOnDepartments(Department.valueOf(choosenDepartment));
+        System.out.println("You picked " + choosenDepartment);
+
+        System.out.println("\nNow you have to choose a doctor");
+        database.createDoctorForEachDepartment();
+        System.out.println("\nPossible Doctor in your department");
+        database.printDoctorBasedOnDepartments(Department.valueOf(choosenDepartment));
+        String choosenDoctor = scan.nextLine();
 
 
     }
