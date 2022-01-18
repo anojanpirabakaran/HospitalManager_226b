@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database implements Read, Write {
-    public ArrayList<Worker> workers = new ArrayList<>();
-    public ArrayList<Patient> patients  = new ArrayList<>();
+    private ArrayList<Worker> workers = new ArrayList<>();
+    private ArrayList<Patient> patients  = new ArrayList<>();
     //Integer is the ID of the patient followed by the reports
-    public HashMap<Integer,ArrayList<Report>> reports = new HashMap<>();
+    private HashMap<Integer,ArrayList<Report>> reports = new HashMap<>();
 
     public void read(){
         for (Person p:readPatients(new File("src/com/company/Database/Data/Patient"))) {

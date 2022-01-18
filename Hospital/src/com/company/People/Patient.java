@@ -10,8 +10,8 @@ import java.util.Date;
 
 public class Patient extends Person {
     private String reasonForStay;
-    public Patient(String firstName, String lastName, String occupation, String birthDate, String reasonForStay,int id) {
-        super(firstName, lastName, occupation, birthDate,id);
+    public Patient(String firstName, String lastName, String birthDate, String reasonForStay,int id) {
+        super(firstName, lastName, birthDate,id);
         this.reasonForStay = reasonForStay;
     }
 

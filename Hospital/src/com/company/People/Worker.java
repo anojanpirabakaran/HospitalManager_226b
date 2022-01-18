@@ -9,9 +9,9 @@ Beschreibung:
 import com.company.Department;
 
 public class Worker extends Person{
-    Department department;
-    public Worker(String firstName, String lastName, String occupation, String birthDate,int id,Department department) {
-        super(firstName, lastName, occupation, birthDate, id);
+   private Department department;
+    public Worker(String firstName, String lastName, String birthDate,int id,Department department) {
+        super(firstName, lastName, birthDate, id);
         this.department = department;
     }
 }

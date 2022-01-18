@@ -10,7 +10,7 @@ import com.company.Department;
 
 public class Doctor extends Worker{
 
-    public Doctor(String firstName, String lastName, String occupation, String birthDate, int id, Department department) {
-        super(firstName, lastName, occupation, birthDate, id, department);
+    public Doctor(String firstName, String lastName, String birthDate, int id, Department department) {
+        super(firstName, lastName, birthDate, id, department);
     }
 }
