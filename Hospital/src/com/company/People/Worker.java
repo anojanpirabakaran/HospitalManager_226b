@@ -8,10 +8,19 @@ Beschreibung:
 
 import com.company.Department;
 
-public class Worker extends Person{
+public class Worker extends Person {
     Department department;
-    public Worker(String firstName, String lastName, String occupation, String birthDate,int id,Department department) {
+
+    public Worker(String firstName, String lastName, String occupation, String birthDate, int id, Department department) {
         super(firstName, lastName, occupation, birthDate, id);
+        this.department = department;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
         this.department = department;
     }
 }
