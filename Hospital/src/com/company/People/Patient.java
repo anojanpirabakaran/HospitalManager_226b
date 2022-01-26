@@ -9,10 +9,8 @@ Beschreibung:
 import java.util.Date;
 
 public class Patient extends Person {
-    private String reasonForStay;
-    public Patient(String firstName, String lastName, String birthDate, String reasonForStay,int id) {
+    public Patient(String firstName, String lastName, String birthDate,int id) {
         super(firstName, lastName, birthDate,id);
-        this.reasonForStay = reasonForStay;
     }
 
     /**

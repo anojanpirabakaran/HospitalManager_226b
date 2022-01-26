@@ -7,6 +7,7 @@ Beschreibung:
 ==============================================================*/
 
 import com.company.Building;
+import com.company.Database.Report;
 import com.company.Department;
 import com.company.People.*;
 
@@ -21,7 +22,6 @@ public interface Read {
         ArrayList<Patient> patients = new ArrayList<>();
         String firstName;
         String lastName;
-        String occupation;
         String date;
         String reasonForStay;
         Patient p;
@@ -33,10 +33,9 @@ public interface Read {
                 firstName = scan.nextLine();
                 lastName = scan.nextLine();
                 date = scan.nextLine();
-                reasonForStay = scan.nextLine();
                 id = scan.nextLine();
                 scan.next();
-                p = new Patient(firstName, lastName, date, reasonForStay, Integer.parseInt(id));
+                p = new Patient(firstName, lastName, date, Integer.parseInt(id));
                 patients.add(p);
             }
 
@@ -45,7 +44,7 @@ public interface Read {
         return patients;
     }
 
-    default ArrayList<Worker> readWorker(File file) {
+    default ArrayList<Worker> readWorkers(File file) {
         ArrayList<Worker> workers = new ArrayList<>();
         String job;
         String firstName;
@@ -92,26 +91,61 @@ public interface Read {
         String[] departmentsValues;
         String[] workerIDs;
         ArrayList<Worker> workersForBuilding = new ArrayList<>();
-        ArrayList<Department> departments=new ArrayList<>();
+        ArrayList<Department> departments = new ArrayList<>();
         try {
             Scanner scan = new Scanner(file);
             while (scan.hasNextLine()) {
                 name = scan.nextLine();
-                departmentsValues=scan.nextLine().split(",");
-                workerIDs=scan.nextLine().split(",");
-                for (String s:departmentsValues) {
+                departmentsValues = scan.nextLine().split(",");
+                workerIDs = scan.nextLine().split(",");
+                for (String s : departmentsValues) {
                     departments.add(Department.valueOf(s));
                 }
-                for (String id:workerIDs){
-                    if(workerMap.containsKey(id)){
+                for (String id : workerIDs) {
+                    if (workerMap.containsKey(id)) {
                         workersForBuilding.add(workerMap.get(id));
                     }
                 }
-                buildings.add(new Building(name,workersForBuilding,departments));
+                buildings.add(new Building(name, workersForBuilding, departments));
             }
         } catch (Exception e) {
 
         }
         return buildings;
+    }
+
+    default ArrayList<Report> readReports(File file, ArrayList<Worker> workers, ArrayList<Patient> patients) {
+        ArrayList<Report> reports = new ArrayList<>();
+        HashMap<int, Worker> workerMap = new HashMap<int, Worker>();
+        for (Worker worker : workers) {
+            workerMap.put(worker.getId(), worker);
+        }
+        HashMap<int, Patient> patientMap = new HashMap<int, Patient>();
+        for (Patient patient : patients) {
+            patientMap.put(patient.getId(), patient);
+        }
+
+        String idPatient;
+        String idWorker;
+        String[] date;
+        String[] startTime;
+        String[] endTime;
+        String reasonForStay;
+        try {
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+                idPatient = scan.nextLine();
+                idWorker = scan.nextLine();
+                date = scan.nextLine().split(",");
+                startTime = scan.nextLine().split(",");
+                endTime = scan.nextLine().split(",");
+                reasonForStay = scan.nextLine();
+                scan.next();
+                reports.add(new Report(patientMap.get(idPatient), workerMap.get(idWorker), Report.formatDate(date[0], date[1], date[2]), Report.formatTime(startTime[0], startTime[1]), Report.formatTime(endTime[0], endTime[1]), reasonForStay));
+            }
+
+        } catch (Exception e) {
+        }
+        return reports;
     }
 }
