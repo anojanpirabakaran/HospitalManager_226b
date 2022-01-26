@@ -7,7 +7,6 @@ Beschreibung:
 ==============================================================*/
 
 import com.company.People.Worker;
-
 import java.util.ArrayList;
 
 public class Building {
@@ -20,4 +19,5 @@ public class Building {
         this.workers = workers;
         this.departments = departments;
     }
+  public ArrayList<Department> departments = new ArrayList<>();
 }

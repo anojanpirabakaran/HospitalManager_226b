@@ -19,14 +19,15 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.id=id;
+        this.id = id;
         numOfPersons++;
     }
+
     public Person(String firstName, String lastName, String birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.id=++numOfPersons;
+        this.id = ++numOfPersons;
     }
 
     public void printData() {
@@ -36,7 +37,56 @@ public class Person {
         System.out.println("ID:         " + id);
     }
 
+
     public int getId() {
         return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static int getNumOfPersons() {
+        return numOfPersons;
+    }
+
+    public static void setNumOfPersons(int numOfPersons) {
+        Person.numOfPersons = numOfPersons;
     }
 }

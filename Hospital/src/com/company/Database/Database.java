@@ -7,17 +7,21 @@ Beschreibung:
 ==============================================================*/
 
 import com.company.Building;
+import com.company.Department;
 import com.company.Interfaces.Read;
+import com.company.People.Doctor;
 import com.company.People.Worker;
 import com.company.Interfaces.Write;
 import com.company.People.Patient;
 import com.company.People.Person;
 
+import javax.print.Doc;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database implements Read, Write {
+
     private ArrayList<Worker> workers;
     private ArrayList<Patient> patients;
     private ArrayList<Building> buildings;
@@ -50,5 +54,28 @@ public class Database implements Read, Write {
      */
     public void checkIn(Worker w) {
 
+    }
+
+    public void printBuildingBasedOnDepartments(Department department) {
+        for (Building b : buildings) {
+            if (b.departments.contains(department)) {
+                System.out.println(department);
+            }
+        }
+    }
+
+    public void printDoctorBasedOnDepartments(Department department) {
+        for (Doctor d : doctors) {
+            if (d.getDepartment().equals(department)) {
+                System.out.println(d.getFirstName() + " " + d.getLastName());
+            }
+        }
+    }
+
+    public void createDoctorForEachDepartment() {
+        Doctor doctor = new Doctor("Johny", "Sins", "Doctor", "14.12.1980", 1, Department.medical);
+        Doctor doctor2 = new Doctor("Alex", "Mccanon", "Doctor", "14.12.1980", 1, Department.rehabilitation);
+        doctors.add(doctor);
+        doctors.add(doctor2);
     }
 }
