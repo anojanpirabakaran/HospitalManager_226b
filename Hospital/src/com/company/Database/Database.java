@@ -21,20 +21,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database implements Read, Write {
-    private ArrayList<Worker> workers = new ArrayList<>();
-    private ArrayList<Patient> patients = new ArrayList<>();
-    private ArrayList<Building> buildings = new ArrayList<>();
-    private ArrayList<Doctor> doctors = new ArrayList<>();
-    //Integer is the ID of the patient followed by the reports
-    public HashMap<Integer, ArrayList<Report>> reports = new HashMap<>();
 
-    public void read() {
-        for (Person p : readPatients(new File("src/com/company/Database/Data/Patient"))) {
-            if (p instanceof Patient) {
-                p.printData();
-            }
+    private ArrayList<Worker> workers;
+    private ArrayList<Patient> patients;
+    private ArrayList<Building> buildings;
+    private HashMap<Integer, ArrayList<Report>> reports = new HashMap<>();
+
+    //Integer is the ID of the patient followed by the reports
+
+    public Database() {
+        workers = readWorkers(new File("src/com/company/Database/Data/Worker"));
+        patients = readPatients(new File("src/com/company/Database/Data/Patient"));
+        buildings = readBuildings(new File("src/com/company/Database/Data/Building"),workers);
+        for (Report r:readReports(new File("src/com/company/Database/Data/Report"),workers,patients)) {
+            addReport(r);
         }
     }
+
+    private void addReport(Report r) {
+        if(!reports.containsKey(r.getPatient().getId())){
+            reports.put(r.getPatient().getId(),new ArrayList<Report>());
+        }
+        reports.get(r.getPatient().getId()).add(r);
+
+    }
+
 
     /**
      * Safes the workers data into a database for storing data that contains the workers name,ID, and check in time

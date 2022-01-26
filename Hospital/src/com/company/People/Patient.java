@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Patient extends Person {
+    public Patient(String firstName, String lastName, String birthDate,int id) {
+        super(firstName, lastName, birthDate,id);
     Scanner scan = new Scanner(System.in);
     private String reasonForStay;
 

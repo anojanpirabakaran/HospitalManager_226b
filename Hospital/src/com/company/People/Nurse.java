@@ -9,7 +9,7 @@ Beschreibung:
 import com.company.Department;
 
 public class Nurse extends Worker {
-    public Nurse(String firstName, String lastName, String occupation, String birthDate, int id, Department department) {
-        super(firstName, lastName, occupation, birthDate,id,department);
+    public Nurse(String firstName, String lastName, String birthDate, int id, Department department) {
+        super(firstName, lastName, birthDate,id,department);
     }
 }
