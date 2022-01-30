@@ -1,13 +1,113 @@
 package com.company;
 
 import com.company.Database.Database;
+import com.company.People.Doctor;
 import com.company.People.Patient;
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Database db = new Database();
-        Patient main = new Patient("Pirabakaran", "Anojan", "Informatiker", "07.02.2005", "Broken Leg", 1);
-        main.bookAppointment(db);
+        Patient pat = new Patient("", "", "", 900909);
+        Doctor doc = new Doctor("", "", "", 9931499, Department.rehabilitation);
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Do you want to be admin or user");
+        String classChoice = "";
+        String input = "";
+        while ((!classChoice.equals("admin") && !classChoice.equals("user"))) {
+            classChoice = scan.nextLine();
+            switch (classChoice) {
+                case "admin":
+                    System.out.println("1:Add Building\n" +
+                            "2:Add a worker to a building\n" +
+                            "3:Add a department to a building\n" +
+                            "4:Add a Worker\n" +
+                            "5:Print Buildings based on department\n" +
+                            "6:Print all Workers\n" +
+                            "7:Print all building Names\n" +
+                            "8:Print all Buildings data\n" +
+                            "9:Switch to user mode\n" +
+                            "0:To quit");
+                    input = scan.nextLine();
+                    while (!input.equals("0") && !input.equals("9")) {
+                        switch (input) {
+                            case "1":
+                                doc.addBuilding(db);
+                                break;
+                            case "2":
+                                doc.addWorkerToBuilding(db);
+                                break;
+                            case "3":
+                                doc.addDepartmentToBuilding(db);
+                            case "4":
+                                doc.addWorker(db);
+                            case "5":
+                                Department d = null;
+                                System.out.println("please enter the department name:");
+                                System.out.println("medical\nnursing\nphysical\nrehabilitation");
+                                while (d == null) {
+                                    input = scan.nextLine();
+                                    switch (input) {
+                                        case "medical":
+                                            d = Department.medical;
+                                            break;
+                                        case "nursing":
+                                            d = Department.nursing;
+                                            break;
+                                        case "physical":
+                                            d = Department.physical;
+                                            break;
+                                        case "rehabilitation":
+                                            d = Department.rehabilitation;
+                                            break;
+                                        default:
+                                            d = null;
+                                    }
+                                }
+                                db.printBuildingBasedOnDepartments(d);
+                                break;
+                            case "6":
+                                db.printAllWorkers();
+                                break;
+                            case "7":
+                                db.printAllBuildingNames();
+                                break;
+                            case "8":
+                                db.printAllDataBuildings();
+                                break;
+                            case "9":
+                                classChoice="user";
+                        }
+                    }
+                case "user":
+                    System.out.println("Please enter your first Name");
+                    pat.setFirstName(scan.nextLine());
+                    System.out.println("Please enter your last name");
+                    pat.setLastName(scan.nextLine());
+                    System.out.println("Please enter your birthdate(dd,mm,yyyy)");
+                    pat.setBirthDate(scan.nextLine());
+                    while (!input.equals("0") && !input.equals("9")) {
+                        System.out.println("1:Add appointment\n" +
+                                "2: Print your reports\n" +
+                                "9: Switch to admin mode\n"+
+                                "0: Quit");
+                        input = scan.nextLine();
+                        switch (input) {
+                            case "1":
+                                pat.bookAppointment(db);
+                                break;
+                            case "2":
+                                pat.printAllMyReports(db);
+                            case "9":
+                                classChoice = "admin";
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

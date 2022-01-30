@@ -19,5 +19,20 @@ public class Building {
         this.workers = workers;
         this.departments = departments;
     }
-  public ArrayList<Department> departments = new ArrayList<>();
+
+    public Building(String name){
+        this.name = name;
+    }
+
+    public ArrayList<Department> getDepartments() {
+        return departments;
+    }
+
+    public ArrayList<Worker> getWorkers() {
+        return workers;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

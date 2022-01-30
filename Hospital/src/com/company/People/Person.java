@@ -58,24 +58,12 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getOccupation() {
-        return occupation;
-    }
-
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
-    }
-
     public String getBirthDate() {
         return birthDate;
     }
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {

@@ -17,13 +17,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public interface Read {
+public interface Read extends DepartmentConverter {
     default ArrayList<Patient> readPatients(File file) {
         ArrayList<Patient> patients = new ArrayList<>();
         String firstName;
         String lastName;
         String date;
-        String reasonForStay;
         Patient p;
         String id;
         try {
@@ -34,12 +33,12 @@ public interface Read {
                 lastName = scan.nextLine();
                 date = scan.nextLine();
                 id = scan.nextLine();
-                scan.next();
-                p = new Patient(firstName, lastName, date, Integer.parseInt(id));
-                patients.add(p);
+                scan.nextLine();
+                patients.add(new Patient(firstName, lastName, date, Integer.parseInt(id)));
             }
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return patients;
     }
@@ -61,35 +60,36 @@ public interface Read {
                 birthDate = scan.nextLine();
                 id = scan.nextLine();
                 department = scan.nextLine();
-                scan.next();
+                scan.nextLine();
                 switch (job) {
                     case "doctor":
-                        workers.add(new Doctor(firstName, lastName, birthDate, Integer.parseInt(id), Department.valueOf(department)));
+                        workers.add(new Doctor(firstName, lastName, birthDate, Integer.parseInt(id), convertStringToDepartment(department)));
                         break;
                     case "nurse":
-                        workers.add(new Nurse(firstName, lastName, birthDate, Integer.parseInt(id), Department.valueOf(department)));
+                        workers.add(new Nurse(firstName, lastName, birthDate, Integer.parseInt(id), convertStringToDepartment(department)));
                         break;
                     default:
-                        workers.add(new Worker(firstName, lastName, birthDate, Integer.parseInt(id), Department.valueOf(department)));
+                        workers.add(new Worker(firstName, lastName, birthDate, Integer.parseInt(id), convertStringToDepartment(department)));
 
                 }
             }
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return workers;
     }
 
     default ArrayList<Building> readBuildings(File file, ArrayList<Worker> workers) {
-        HashMap<int, Worker> workerMap = new HashMap<int, Worker>();
+        HashMap<Integer, Worker> workerMap = new HashMap<>();
         ArrayList<Building> buildings = new ArrayList<>();
 
         for (Worker worker : workers) {
             workerMap.put(worker.getId(), worker);
         }
-        String name;
+        String name="";
         String[] departmentsValues;
-        String[] workerIDs;
+        String[] workerIDs = new String[0];
         ArrayList<Worker> workersForBuilding = new ArrayList<>();
         ArrayList<Department> departments = new ArrayList<>();
         try {
@@ -99,34 +99,36 @@ public interface Read {
                 departmentsValues = scan.nextLine().split(",");
                 workerIDs = scan.nextLine().split(",");
                 for (String s : departmentsValues) {
-                    departments.add(Department.valueOf(s));
+                    departments.add(convertStringToDepartment(s));
                 }
-                for (String id : workerIDs) {
-                    if (workerMap.containsKey(id)) {
-                        workersForBuilding.add(workerMap.get(id));
-                    }
-                }
-                buildings.add(new Building(name, workersForBuilding, departments));
             }
-        } catch (Exception e) {
+            for (String id : workerIDs) {
+                if (workerMap.containsKey(Integer.parseInt(id))) {
+                    workersForBuilding.add(workerMap.get(Integer.parseInt(id)));
+                }
+            }
+            buildings.add(new Building(name, workersForBuilding, departments));
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return buildings;
     }
 
     default ArrayList<Report> readReports(File file, ArrayList<Worker> workers, ArrayList<Patient> patients) {
         ArrayList<Report> reports = new ArrayList<>();
-        HashMap<int, Worker> workerMap = new HashMap<int, Worker>();
+        HashMap<Integer, Worker> workerMap = new HashMap<Integer, Worker>();
         for (Worker worker : workers) {
             workerMap.put(worker.getId(), worker);
         }
-        HashMap<int, Patient> patientMap = new HashMap<int, Patient>();
+        HashMap<Integer, Patient> patientMap = new HashMap<Integer, Patient>();
         for (Patient patient : patients) {
             patientMap.put(patient.getId(), patient);
         }
 
         String idPatient;
         String idWorker;
+        Department d;
         String[] date;
         String[] startTime;
         String[] endTime;
@@ -136,15 +138,17 @@ public interface Read {
             while (scan.hasNextLine()) {
                 idPatient = scan.nextLine();
                 idWorker = scan.nextLine();
+                d = convertStringToDepartment(scan.nextLine());
                 date = scan.nextLine().split(",");
-                startTime = scan.nextLine().split(",");
-                endTime = scan.nextLine().split(",");
+                startTime = scan.nextLine().split(":");
+                endTime = scan.nextLine().split(":");
                 reasonForStay = scan.nextLine();
-                scan.next();
-                reports.add(new Report(patientMap.get(idPatient), workerMap.get(idWorker), Report.formatDate(date[0], date[1], date[2]), Report.formatTime(startTime[0], startTime[1]), Report.formatTime(endTime[0], endTime[1]), reasonForStay));
+                scan.nextLine();
+                reports.add(new Report(patientMap.get(Integer.parseInt(idPatient)), workerMap.get(Integer.parseInt(idWorker)),d, Report.formatDate(date[0], date[1], date[2]), Report.formatTime(startTime[0], startTime[1]), Report.formatTime(endTime[0], endTime[1]), reasonForStay));
             }
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return reports;
     }
