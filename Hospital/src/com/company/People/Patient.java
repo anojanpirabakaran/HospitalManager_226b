@@ -20,6 +20,12 @@ public class Patient extends Person implements DepartmentConverter {
         super(firstName, lastName, birthDate, id);
     }
 
+    public Patient(String firstName, String lastName, String birthDate) {
+        super(firstName, lastName, birthDate);
+    }
+
+
+
 
     /**
      * Makes an appointment in a database
@@ -70,7 +76,7 @@ public class Patient extends Person implements DepartmentConverter {
         } while (database.timeSlotIsFree(date, startTime, endTime));
     }
 
-    private void addAppointment(Database database,String date,String startTime,String endTime,Patient p,Worker w,String reason,Department d) {
+    public void addAppointment(Database database,String date,String startTime,String endTime,Patient p,Worker w,String reason,Department d) {
         database.addAppointment(date,startTime,endTime,p,w,reason,d);
     }
 

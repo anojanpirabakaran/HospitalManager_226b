@@ -282,4 +282,21 @@ public class Database implements Read, Write {
     public void printAllReportsOfUserIntoFile(int id){
         printReportsInList(reports.get(id));
     }
+
+    public ArrayList<Worker> getWorkers() {
+        return workers;
+    }
+
+    public HashMap<Integer, ArrayList<Report>> getReports() {
+        return reports;
+    }
+
+    public HashMap<String, ArrayList<String[]>> getAppointments() {
+        return appointments;
+    }
+
+
+    public void clearWorkerList(){
+        workers = new ArrayList<>();
+    }
 }
