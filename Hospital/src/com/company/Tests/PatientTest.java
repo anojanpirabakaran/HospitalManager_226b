@@ -13,13 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatientTest {
 
     @Test
-    void addAppointment() {
+    void addAppointmentAddsReport() {
         Database db = new Database();
         Patient p = new Patient("", "", "", 725);
         Worker w = new Worker("","","",Department.medical);
 
         p.addAppointment(db,"","","",p, w, "", Department.medical);
-
-        assertEquals(1, db.getAppointments().get(1).size());
+        assertEquals(1, db.getReports().get(725).size());
     }
 }
