@@ -16,22 +16,25 @@ public class Main {
         System.out.println("Do you want to be admin or user");
         String classChoice = "";
         String input = "";
-        while ((!classChoice.equals("admin") && !classChoice.equals("user"))) {
-            classChoice = scan.nextLine();
+        String cont = "true";
+        while (((!classChoice.equals("admin") && !classChoice.equals("user")) || (cont.equals("true")) && classChoice.equals("user")) ||(cont.equals("true")) && classChoice.equals("admin")) {
+            if(classChoice.equals("")){
+                classChoice = scan.nextLine();
+            }
             switch (classChoice) {
                 case "admin":
-                    System.out.println("1:Add Building\n" +
-                            "2:Add a worker to a building\n" +
-                            "3:Add a department to a building\n" +
-                            "4:Add a Worker\n" +
-                            "5:Print Buildings based on department\n" +
-                            "6:Print all Workers\n" +
-                            "7:Print all building Names\n" +
-                            "8:Print all Buildings data\n" +
-                            "9:Switch to user mode\n" +
-                            "0:To quit");
-                    input = scan.nextLine();
-                    while (!input.equals("0") && !input.equals("9")) {
+                    while (!input.equals("0") && !input.equals("9") && classChoice.equals("admin") && cont.equals("true")) {
+                        System.out.println("1:Add Building\n" +
+                                "2:Add a worker to a building\n" +
+                                "3:Add a department to a building\n" +
+                                "4:Add a Worker\n" +
+                                "5:Print Buildings based on department\n" +
+                                "6:Print all Workers\n" +
+                                "7:Print all building Names\n" +
+                                "8:Print all Buildings data\n" +
+                                "9:Switch to user mode\n" +
+                                "0:To quit");
+                        input = scan.nextLine();
                         switch (input) {
                             case "1":
                                 doc.addBuilding(db);
@@ -79,8 +82,14 @@ public class Main {
                                 break;
                             case "9":
                                 classChoice="user";
+                                break;
+                            case "0":
+                                cont="false";
+                                break;
                         }
+                        input="";
                     }
+                    break;
                 case "user":
                     System.out.println("Please enter your first Name");
                     pat.setFirstName(scan.nextLine());
@@ -88,10 +97,10 @@ public class Main {
                     pat.setLastName(scan.nextLine());
                     System.out.println("Please enter your birthdate(dd,mm,yyyy)");
                     pat.setBirthDate(scan.nextLine());
-                    while (!input.equals("0") && !input.equals("9")) {
+                    while (!input.equals("0") && !input.equals("3") && classChoice.equals("user") && cont.equals("true")) {
                         System.out.println("1:Add appointment\n" +
                                 "2: Print your reports\n" +
-                                "9: Switch to admin mode\n"+
+                                "3: Switch to admin mode\n"+
                                 "0: Quit");
                         input = scan.nextLine();
                         switch (input) {
@@ -100,9 +109,15 @@ public class Main {
                                 break;
                             case "2":
                                 pat.printAllMyReports(db);
-                            case "9":
+                                break;
+                            case "3":
                                 classChoice = "admin";
+                                break;
+                            case"0":
+                                cont="false";
+                                break;
                         }
+                        input="";
                     }
                     break;
                 default:
