@@ -78,7 +78,7 @@ public class Database implements Read, Write {
     public void printBuildingBasedOnDepartments(Department department) {
         for (Building b : buildings) {
             if (b.getDepartments().contains(department)) {
-                System.out.println(department);
+                System.out.println(b.getName());
             }
         }
     }

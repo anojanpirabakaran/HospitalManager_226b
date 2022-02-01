@@ -44,8 +44,10 @@ public class Main {
                                 break;
                             case "3":
                                 doc.addDepartmentToBuilding(db);
+                                break;
                             case "4":
                                 doc.addWorker(db);
+                                break;
                             case "5":
                                 Department d = null;
                                 System.out.println("please enter the department name:");
