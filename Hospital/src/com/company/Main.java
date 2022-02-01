@@ -24,7 +24,7 @@ public class Main {
             switch (classChoice) {
                 case "admin":
                     while (!input.equals("0") && !input.equals("9") && classChoice.equals("admin") && cont.equals("true")) {
-                        System.out.println("1:Add Building\n" +
+                        System.out.println("\n1:Add Building\n" +
                                 "2:Add a worker to a building\n" +
                                 "3:Add a department to a building\n" +
                                 "4:Add a Worker\n" +
@@ -100,10 +100,10 @@ public class Main {
                     System.out.println("Please enter your birthdate(dd,mm,yyyy)");
                     pat.setBirthDate(scan.nextLine());
                     while (!input.equals("0") && !input.equals("3") && classChoice.equals("user") && cont.equals("true")) {
-                        System.out.println("1:Add appointment\n" +
-                                "2: Print your reports\n" +
-                                "3: Switch to admin mode\n"+
-                                "0: Quit");
+                        System.out.println("\n1:Add appointment\n" +
+                                "2:Print your reports\n" +
+                                "3:Switch to admin mode\n"+
+                                "0:Quit");
                         input = scan.nextLine();
                         switch (input) {
                             case "1":

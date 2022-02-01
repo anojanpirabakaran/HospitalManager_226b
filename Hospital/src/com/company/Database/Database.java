@@ -54,6 +54,7 @@ public class Database implements Read, Write {
             for (Worker w : b.getWorkers()) {
                 System.out.println("    ID: " + w.getId() + " " + w.getFirstName() + " " + w.getLastName());
             }
+            System.out.println("----------------------");
         }
     }
 
